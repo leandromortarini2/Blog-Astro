@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
-import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 
 const pageTitle = "Sobre mi";
 
@@ -45,7 +45,8 @@ color: var(--skillColor);
 	</head>
 	<body>
   <body>
-<Navigation/>
+<Header/>
+
 
 
 
@@ -77,6 +78,9 @@ color: var(--skillColor);
 
 
   <Footer/>
+   <script>
+    import "../scripts/menu.js";
+  </script>
 </body>
 	</body>
 </html>

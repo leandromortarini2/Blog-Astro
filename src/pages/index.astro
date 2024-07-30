@@ -1,19 +1,29 @@
 ---
-import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Hamburger from '../components/Hamburger.astro';
+import '../styles/global.css';
 ---
 
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Blog Astro</title>
-	</head>
-	<body>
-<Navigation/>
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="generator" content={Astro.generator} />
+  <title>Blog Astro</title>
+</head>
+<body>
+  <Header />
+  <Hamburger /> <!-- Asegúrate de que este componente se renderice aquí -->
+  
   <h1>Mi Blog Astro</h1>
-  <Footer/>
-	</body>
+  <Footer />
+
+  <!-- Incluye el script aquí con src -->
+  <script>
+    import "../scripts/menu.js";
+  </script>
+</body>
 </html>
