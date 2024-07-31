@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPost from '../../components/BlogPost.astro';
+import type { MarkdownInstance } from 'astro';
+
+// Define el tipo de los parámetros esperados en las rutas
+interface Params {
+  tag: string;
+}
+
+// Define el tipo de los datos esperados en las publicaciones
+interface Frontmatter {
+  title: string;
+  tags: string[];
+}
+
+// Obtén todas las publicaciones con el tipo adecuado
+const allPosts: MarkdownInstance<Frontmatter>[] = await Astro.glob('../posts/*.md');
+
+// Genera las rutas estáticas basadas en las etiquetas disponibles
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { tag: "astro" } },
+      { params: { tag: "éxitos" } },
+      { params: { tag: "comunidad" } },
+      { params: { tag: "bloguear" } },
+      { params: { tag: "contratiempos" } },
+      { params: { tag: "aprender en público" } },
+    ],
+  };
+}
+
+// Obtén las propiedades estáticas necesarias para cada ruta
+export async function getStaticProps({ params }: { params: Params }) {
+  const { tag } = params;
+  const filteredPosts = allPosts.filter((post) => post.frontmatter.tags?.includes(tag));
+
+  return {
+    props: {
+      tag,
+      posts: filteredPosts,
+    },
+  };
+}
+
+// Extrae los parámetros y propiedades proporcionadas por Astro
+const { tag, posts }: { tag: string, posts: MarkdownInstance<Frontmatter>[] } = Astro.props;
+``
+---
+<BaseLayout pageTitle={tag}>
+  <p>Entradas etiquetadas con {tag}</p>
+  <ul>
+    {posts.map(post => (
+      <BlogPost url={post.url} title={post.frontmatter.title} />
+    ))}
+  </ul>
+</BaseLayout>
